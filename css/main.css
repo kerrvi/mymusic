@@ -1,0 +1,214 @@
+@charset "UTF-8";
+/*轮播banner开始*/
+.slider {
+    width: 100%;
+    height: 401px;
+    background: rgba(203,203,203,.5);
+    /*clear: both;*/
+    /*position: relative;*/
+}
+.slider .box {
+    height: 401px;
+    position: relative;
+    overflow: hidden;
+}
+.slider ul {
+    width:2000%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+.slider ul li {
+    float: left;
+}
+.slider .jd {
+    position: absolute;
+    left: 50%;
+    margin-left: -84px;
+    bottom: 10px;
+}
+.slider .jd li {
+    float: left;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #fff;
+}
+.slider .jd .current {
+    background-color: #D00088;
+}
+/*main开始*/
+.main {
+    padding-bottom: 50px;
+}
+.main .box1 {
+    margin-top: 36px;
+    overflow: hidden;  /*这真高明！为不断探索和乐于分享的前辈们致敬鼓掌*/
+}
+.box1 .b_left {
+    width: 510px;
+    float: left;
+}
+.b_left .img2 {
+    margin-top: 20px;
+}
+.box1 .b_right {
+    width: 458px;
+    float: right;
+}
+.box1 .b_right p {
+    color: #D00088;
+    cursor: pointer;
+}
+.box1 .b_right p:hover {
+    background-color: #eee;
+}
+.box1 .b_right a:hover {
+    color: #D00088;
+}
+.b_right h3 {
+    border-bottom: 1px solid #D8D8D8;
+    width: 100%;
+    height: 16px;
+    font-size: 16px;
+    color: #E85252;
+    padding: 0 0 9px 0;
+}
+.b_right h3 a {
+    float: right;
+    font-size: 14px;
+    color: #9b9b9b;
+}
+.b_right .songs {
+    float: right;
+    width: 100%;
+}
+.b_right .songs li {
+    width: 100%;
+    height: 72px;
+    border-bottom: 1px solid #D8D8D8;
+    background: url("../images/song5.jpg") no-repeat 345px;
+}
+.b_right .songs dl {
+    float: left;
+    width: 100%;
+    padding-left: 15px;
+}
+.b_right .songs dt {
+    font-size: 16px;
+    color: #4a4a4a;
+    margin-top: 15px;
+    width: 300px;
+    line-height: 23px;
+    height: 23px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.songs dt a {
+    font-size: 16px;
+    color: #4a4a4a;
+}
+.songs dd a {
+    color: #9b9b9b;
+}
+
+/*singer开始*/
+.singer {
+    overflow: hidden;
+    padding-bottom: 50px;
+}
+.singer .warm {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.singer .warm span {
+    float: left;
+    font-size: 16px;
+    color: #4c454c;
+    width: 100%;
+}
+.singer .list {
+    float: left;
+    overflow: hidden;
+    width: 300px;
+    height: 200px;
+    margin-right: 50px;
+    position: relative;
+    /*cursor: pointer;*/
+}
+.singer div:nth-child(4) {
+    margin-right: 0;
+}
+.singer .list div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-100deg);
+    transform-origin: left top;
+    transition: transform 1s;
+}
+.singer .current div {
+    transform: rotate(0deg);
+}
+.singer .list div.top {
+    transform-origin: left top;
+}
+.singer .list div.right {
+    transform-origin: right top;
+}
+.singer .list div.bottom {
+    transform-origin: right bottom;
+}
+.singer .list div.left {
+    transform-origin: left bottom;
+}
+
+/*友情提示开始*/
+.bossLink {
+    height: 100px;
+    /*background-color: #ddd;*/
+    margin-bottom: 50px;
+}
+.bossLink .warm {
+    overflow: hidden;
+}
+.bossLink .warm span {
+    float: left;
+    font-size: 16px;
+    color: #4c454c;
+    width: 100%;
+}
+.bossLink .links ul {
+    margin-top: 25px;
+
+}
+.links ul li {
+    float: left;
+    width: 199px;
+    border-right: 1px solid #999;
+    text-align: center;
+}
+.links ul .last {
+    border: none;
+}
+.links ul a {
+    color: #999;
+}
+.links ul a:link {
+    color: #999 ;
+}
+.links ul a:visited {
+    /*color: red;*/
+}
+.links ul a:hover {
+    color: #D00088;
+}
+.links ul a:active {
+    color: #000;
+}

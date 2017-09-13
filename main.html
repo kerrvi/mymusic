@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<title>我的音乐站</title>
+	<link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main.css">
+	<link rel="shortcut icon" href="favicon.ico">
+    <script src="js/my.js" type="text/javascript"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script>
+        window.onload = function(){
+            var mask = document.getElementById("mask");
+            var join = document.getElementById("join");
+            var close = document.getElementById("close");
+            var jia = document.getElementById("jia");
+            var jTop = join.children[1];
+            jia.onclick = function(){
+                show(mask);
+                show(join);
+            }
+            close.onclick = function(){
+                hide(mask);
+                hide(join);
+            }
+            nowDrop(jTop,join);
+//            返回顶部
+            var back = document.getElementById("back");
+            window.onscroll = function(){
+//                alert(back);
+//                console.log(scroll().top);
+
+                scroll().top > 0 ? show(back) : hide(back);
+                var leader= 0,target= 0,timer=null;
+                leader = scroll().top;
+                back.onclick = function(){
+                    timer = setInterval(function(){
+                        leader = leader + (target - leader)/10;
+                        window.scrollTo(0,leader);
+                        if(scroll().top == 0){clearInterval(timer);}
+                    },30)
+                }
+
+            }
+//            music播放
+            var musics = document.querySelectorAll(".music");
+            var musicPlayer = document.getElementById("musicPlayer");
+            var cNow = document.querySelector(".now");
+            var songShow = document.getElementById("songShow");
+            var timer = null;
+            var s = 0,mins = 0;
+            cNow.onclick = function(){
+                if(musicPlayer.paused){
+                    musicPlayer.play();
+                    cNow.style.backgroundPosition = "-138px -194px";
+                    cNow.title = "暂停";
+                    clearInterval(timer);
+                    timer = setInterval(autoTime,1000);
+                }else {
+                    musicPlayer.pause();
+                    cNow.style.backgroundPosition = "-137px -113px";
+                    cNow.title = "播放";
+                    clearInterval(timer);
+                }
+            }
+            for (var i = 0;i < musics.length;i++){
+                musics[i].addEventListener("click",function(){
+                    if(musicPlayer.paused){
+                        musicPlayer.src = "music/" + this.innerHTML + ".mp3";
+                        musicPlayer.play();
+                        songShow.innerHTML = this.innerHTML;
+                        cNow.style.backgroundPosition = "-138px -194px";
+                        cNow.title = "暂停";
+                        clearInterval(timer);
+                        timer = setInterval(autoTime,1000);
+                    }else {
+                        musicPlayer.pause();
+                        cNow.style.backgroundPosition = "-137px -113px";
+                        cNow.title = "播放";
+                        clearInterval(timer);
+                    }
+                });
+            }
+            function autoTime(){ // huoq获取显示播放时间
+                var playTime = document.querySelector(".playTime");
+                var songTime = parseInt(musicPlayer.currentTime);
+                s = songTime % 60;
+                s < 10 ? s = "0" + s : s;
+                mins = "0" + parseInt(songTime / 60);
+//                console.log(mins + ":" + s);
+                playTime.innerHTML = mins + ":" + s + "/04:17";
+            }
+        }
+        // singer展示
+        $(document).ready(function(){
+            $(".list").on("mouseenter mouseleave",function(e) {
+                var that = $(this);
+                var w = $(this).width(); // 得到盒子宽度
+                var h = $(this).height();// 得到盒子高度
+                var x = (e.pageX - this.offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
+                // 获取x值
+                var y = (e.pageY - this.offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
+                // 获取y值
+                var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4; //direction的值为“0,1,2,3”分别对应着“上，右，下，左”
+                // 将点的坐标对应的弧度值换算成角度度数值
+//                var dirName = new Array('上方','右侧','下方','左侧');
+                if(e.type == 'mouseenter'){
+//                    $(this).html(dirName[direction]+'进入');
+                    switch (direction){
+                        case 0:
+                            comeIn("top");
+                            break;
+                        case 1:
+                            comeIn("right");
+                            break;
+                        case 2:
+                            comeIn("bottom");
+                            break;
+                        case 3:
+                            comeIn("left");
+                            break;
+                    }
+                }else{
+//                    $(this).html(dirName[direction]+'离开');
+                    switch (direction){
+                        case 0:
+                            getOut("top");
+                            break;
+                        case 1:
+                            getOut("right");
+                            break;
+                        case 2:
+                            getOut("bottom");
+                            break;
+                        case 3:
+                            getOut("left");
+                            break;
+                    }
+                }
+                function comeIn(form){
+                    that.addClass("current");
+                    that.children("div").removeClass().addClass(form);
+                }
+                function getOut(go){
+                    that.removeClass("current");
+                    that.children("div").removeClass().addClass(go);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<!--返回顶部-->
+    <div id="back" class="back" title="返回顶部">
+        <img src="images/rocket.jpg" alt="">
+    </div>
+<!--头部-->
+	<div class="top">
+        <div class="w">
+            <div class="logo fl"><a href="index.html"><img src="images/logo.jpg" alt="" title="我的音乐"></a></div>
+            <dl class="top-nav">
+                <dt>
+                    <a href="main.html" title="主页">我乐库</a>
+                    <span></span>
+                </dt>
+                <dd>
+                    <a href="#" title="用手机打开kerrvi.com">移动端</a>
+                </dd>
+            </dl>
+            <div class="search"></div>
+            <button class="submit" id="jia" title="登录">请加入我</button>
+        </div>
+    </div>
+    <div id="mask"></div>
+    <div id="join" class="join">
+        <span id="close" title="关闭">×</span>
+        <div class="jTop" title="可拖动">登录</div>
+
+        <div class="jMain">
+            <div id="info">登陆成功！</div>
+            <p><input id = "UserName" value="用户名" name = "UserName" type = "text" /></p>
+            <p><input id = "PassWord" value="密码" name = "PassWord" type = "text" /></p>
+            <button id="dengLu">登录</button>
+            <script>
+                var dengLu = document.getElementById("dengLu");
+                var info = document.getElementById("info");
+                dengLu.onclick  = function(){
+                    show(info);
+                    var UserName = document.getElementById("UserName").value;
+                    var PassWord = document.getElementById("PassWord").value;
+                    var postStr = "UserName=" + UserName + "&PassWord=" + PassWord;
+                    //the notes are another way to achieve this function
+                    //ajax("login.php",postStr);
+//                    ajax("login2.php",postStr,function(result){
+//                        document.getElementById("info").innerHTML = result;
+//                    });
+                }
+
+                function ajax(url,postStr,onsuccess){
+//function ajax(url,postStr){
+                    var xmlhttp = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject('Microsoft.XMLHTTP');
+                    xmlhttp.open("POST",url,true);
+                    xmlhttp.onreadystatechange = function(){
+                        if(xmlhttp.readyState == 4){
+                            if(xmlhttp.status == 200){
+                                //document.getElementById("info").innerHTML = xmlhttp.responseText;
+                                onsuccess(xmlhttp.responseText);
+                            }
+                            else{
+                                alert("AJAX ERROR!");
+                            }
+                        }
+                    }
+                    xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                    xmlhttp.send(postStr);
+                }
+            </script>
+        </div>
+
+    </div>
+<!--头部结束-->
+<!--导航栏、搜索框-->
+    <div class="header w">
+        <div class="nav">
+            <ul>
+                <li><a href="main.html" title="可以弹琴哦">我发现</a></li>
+                <li><a href="songlist.html" title="歌曲列表">我的歌</a></li>
+                <li class="last"><a href="#singer" title="you like">音乐人</a></li>
+            </ul>
+        </div>
+        <div class="search">
+            <input type="text" value="" id="txt">
+            <label for="txt" id="message">你想要的音乐</label>
+            <button title="点击查找">查找</button>
+            <div id="list">
+                <!--<ul>-->
+                    <!--<li>喜欢你</li>-->
+                    <!--<li>喜欢你</li>-->
+                    <!--<li>喜欢你</li>-->
+                <!--</ul>-->
+            </div>
+        </div>
+        <!--自家搜索框好体验-->
+        <script>
+            var mess = document.getElementById("message");
+            var txt = document.getElementById("txt");
+//            txt.onmouseover = function() {
+            txt.oninput = function() {
+                    if (this.value == ""){
+                        mess.style.display = "block";
+                    }else {
+                        mess.style.display = "none";
+                    }
+                }
+            $(document).ready(function(){
+                $("#txt").on("keyup",function(){
+                    var keyword = $(this).val();
+                    var url = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + keyword;
+//                    alert(keyword);
+                    queryBaidu(url);
+                });
+                $(document).click(function(e){
+//                    console.log(e.target.id);
+                    if(e.target.id != "txt"){
+                        $("#list").hide();
+                    }
+                });
+            });
+            function queryBaidu(url){
+                document.getElementById("list").innerHTML = "";
+                $.ajax({
+                    type:"get",
+                    async:true,
+                    url:url,
+                    dataType:"jsonp",
+                    jsonp:"cb",
+                    jsonpCallback:"callback",
+                    success:function(data){
+                        $ul = $("<ul></ul>");
+                        $.each(data.s,function(index,value){
+                            $li = $("<li></li>");
+                            $li.append(value);
+                            $li.appendTo($ul);
+                        });
+                        $("#list").append($ul).show();
+                    },
+                    error:function(){
+                        console.log("查找失败");
+                    }
+                });
+            }
+        </script>
+    </div>
+<!--琴键音符-->
+    <div id="piano">
+        <audio src="music/1.ogg"></audio>
+        <audio src="music/2.ogg"></audio>
+        <audio src="music/3.ogg"></audio>
+        <audio src="music/4.ogg"></audio>
+        <audio src="music/5.ogg"></audio>
+        <audio src="music/6.ogg"></audio>
+        <audio src="music/7.ogg"></audio>
+        <audio src="music/8.ogg"></audio>
+        <audio src="music/9.ogg"></audio>
+    </div>
+    <script>
+        var audios = document.querySelectorAll("#piano audio");
+//        console.log(audios);
+            window.onkeydown = function(e){
+//                console.log(e.keyCode);
+                var num = 0;
+                if (e.keyCode >= 49 && e.keyCode <= 57){
+                    num = e.keyCode - 49;
+                    audios[num].load();
+                    audios[num].play();
+                }
+            }
+    </script>
+<!--播放器-->
+    <audio src="music/天高路远.mp3" id="musicPlayer" loop="loop"></audio>
+    <div class="player">
+        <span class="close" id="playerClose" title="关闭">×</span>
+        <div class="splice"></div>
+        <div class="playerBox">
+            <div class="play w">
+                <div class="pLeft">
+                    <div class="controller">
+                        <div class="up" title="上一首"></div>
+                        <div class="now" title="播放"></div>
+                        <div class="dowm" title="下一首"></div>
+                    </div>
+                </div>
+                <div class="pMid">
+                    <p id="songShow">来听听音乐吧</p>
+                    <div class="bar">
+                        <div class="bufferBar">
+                            <div class="progressBar"></div>
+                            <a href="" class="scheduleBtn"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pRight">
+                    <p class="playTime">00:00</p>
+                    <div class="controlBtn">
+                        <div class="menu" title="歌曲列表"></div>
+                        <a href="#" class="dowmload" title="下载"></a>
+                        <div class="ewm" title="二维码"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script> // 关闭
+        var pClose = document.getElementById("playerClose");
+        var player = pClose.parentNode;
+        pClose.onclick = function(){
+//            alert(player); ok!
+            player.style.display = "none";
+        }
+    </script>
+    <!--轮播banner-->
+    <div class="slider">
+      <div class="box w" id="slider">
+          <ul>
+              <li>
+                  <a href="#"><img src="images/slider1.jpg" alt=""></a>
+              </li>
+              <li>
+                  <a href="#"><img src="images/slider2.jpg" alt=""></a>
+              </li>
+              <li>
+                  <a href="#"><img src="images/slider3.jpg" alt=""></a>
+              </li>
+              <li>
+                  <a href="#"><img src="images/slider4.jpg" alt=""></a>
+              </li>
+              <li>
+                  <a href="#"><img src="images/slider5.jpg" alt=""></a>
+              </li>
+              <li>
+                  <a href="#"><img src="images/slider6.jpg" alt=""></a>
+              </li>
+          </ul>
+          <ol class="jd" id="jiaodian">
+              <li class="current">1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+          </ol>
+      </div>
+        <!--JavaScript黑科技-->
+        <script>
+            var sBox = document.getElementById("slider");
+            var imgUl = sBox.firstElementChild;
+            var jdOl = sBox.children[1];
+            var jdLis = jdOl.children;
+            for (var i=0;i<jdLis.length;i++){
+                jdLis[i].index = i;
+                jdLis[i].onmouseover = function(){
+                    for (var j=0;j<jdLis.length;j++){
+                        jdLis[j].className = "";
+                    }
+                    this.className = "current";
+                    target = -1000 * this.index;
+                }
+            }
+            var leader = 0,target = 0;
+            setInterval(function (){
+                leader = leader + (target - leader)/10;
+                imgUl.style.left = leader + "px";
+            },30);
+        </script>
+    </div>
+    <!--内容-->
+    <div class="main">
+        <div class="box1 w">
+            <div class="b_left">
+                <a href="#"><img src="images/m1.jpg" alt="待定"></a>
+                <a href="#"><img class="img2" src="images/m2.jpg" alt="wait.."></a>
+            </div>
+            <div class="b_right">
+                <h3>
+                    我常听的歌
+                    <a href="songlist.html">查看更多</a>
+                </h3>
+                <ul class="songs">
+                    <li>
+                        <dl>
+                            <dt><p class="music">天高路远</p></dt>
+                            <dd><a href="nzbz.html" target="_blank">南征北战</a></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt><p class="music">我的天空</p></dt>
+                            <dd><a href="nzbz.html">南征北战</a></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt><p class="music">龙卷风</p></dt>
+                            <dd><a href="dengzq.html" target="_blank">邓紫棋</a></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt><p class="music">喜欢你</p></dt>
+                            <dd><a href="dengzq.html" target="_blank">邓紫棋</a></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt><p class="music">生来倔强</p></dt>
+                            <dd><a href="nzbz.html">南征北战</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<!--音乐人singer开始-->
+    <div class="singer w" id="singer">
+        <div class="warm">
+            <span>音乐人: i like that. Do you like that?</span>
+        </div>
+        <div class="list">
+                <img src="images/deng00.jpg" alt="">
+                <div>
+                    <a href="dengzq.html" title="邓紫棋"><img src="images/deng4.jpg" alt=""></a>
+                </div>
+        </div>
+        <div class="list">
+
+                <img src="images/nzbz00.jpg" alt="">
+                <div>
+                    <a href="nzbz.html" title="南征北战"><img src="images/nzbz2.jpg" alt=""></a>
+                </div>
+        </div>
+        <div class="list">
+                <img src="images/deng2.jpg" alt="">
+                <div>
+                    <a href="dengzq.html" title="邓紫棋"><img src="images/deng5.jpg" alt=""></a>
+                </div>
+        </div>
+    </div>
+    <!--友情链接-->
+    <div class="bossLink w">
+        <div class="warm">
+            <span>如果你想要听更多的音乐，推荐还是找这些大咖吧，嘻嘻:)</span>
+        </div>
+        <div class="links">
+            <ul>
+                <li><a href="http://www.kugou.com/" target="_blank">酷狗大咖</a></li>
+                <li><a href="https://y.qq.com/" target="_blank">QQ大咖</a></li>
+                <li><a href="http://www.kuwo.cn/" target="_blank">酷我大咖</a></li>
+                <li><a href="http://fm.baidu.com/" target="_blank">百度大咖</a></li>
+                <li class="last"><a href="http://www.4399.com" target="_blank">4399大咖</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--底部开始-->
+    <div class="footer">
+        <p class="p1">
+            <span>
+                <a href="#"><img src="images/footer1.png" alt="">加入我一起音乐吧:)</a>
+            </span>
+            <span>
+                <img src="images/footer2.png" alt="">
+                联系我吧:) 18898538673 &nbsp; QQ727946178
+            </span>
+        </p>
+        <p class="p2">www.域名待定.com &nbsp; 这很像一个商业网站了哈哈</p>
+        <p class="p3">沪B2-20070067 沪ICP备05025781号-3文网文[2010]277号 网络视听许可证0910577</p>
+    </div>
+</body>
+</html>

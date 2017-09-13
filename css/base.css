@@ -1,0 +1,411 @@
+@charset "UTF-8";
+/*css 初始化*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,input,textarea,p,blockquote{margin:0;padding:0; font-size: 100%; font-weight: normal;}
+ol, ul, li{list-style: none outside none;}
+a,a:active,a:hover,a:focus {text-decoration: none;outline:none; color: #999;}
+html,body {height: 100%;-webkit-touch-callout:none;}
+input,button,textarea{outline:none;border:0;vertical-align:middle;border:0;font-family:"黑体"}
+input[type="submit"],input[type="reset"],input[type="button"],button {-webkit-appearance:none;border-radius:0}
+button{cursor:pointer;}
+select{-webkit-appearance:none;-moz-appearance:none;appearance:none}
+textarea{resize:none}
+img{ border: 0; vertical-align:middle;}
+span,b,i,em{ display:inline-block; font-style:normal}
+body {background: #fff;width: 100%;min-height: 100%;text-align: left; font-size: 14px; font-family:"Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;}
+
+
+/*公共类*/
+.w {  /*版心 提取 */
+    width: 1000px;margin:0 auto;
+}
+.fl {
+    float:left
+}
+.fr {
+    float:right
+}
+.al {
+    text-align:left
+}
+.ac {
+    text-align:center
+}
+.ar {
+    text-align:right
+}
+.hide {
+    display:none
+}
+
+/*返回顶部*/
+.back {
+    position: fixed;
+    bottom:100px;
+    right: 40px;
+    cursor: pointer;
+    display: none;
+}
+/*头部*/
+.top {
+    height: 60px;
+    background-color:#D00088;
+}
+.top .logo {
+    float: left;
+    overflow: hidden;
+    margin-top: 1px;
+}
+.top .top-nav {
+    float: left;
+    line-height: 60px;
+}
+.top .top-nav dt,.top .top-nav dd {
+    padding:0 20px;
+    float: left;
+}
+.top .top-nav a {
+    color: #fff;
+}
+.top .submit {
+    float: right;
+    width: 100px;
+    height: 34px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 12px;
+    background: none;
+}
+#mask {
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    display: none;
+}
+#join {
+    width: 400px;
+    height: 270px;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -125px;
+    z-index: 100000;
+    display: none;
+}
+#close {
+    position: absolute;
+    top:0px;
+    right: 0px;
+    width:20px;
+    height: 20px;
+    /*line-height: 20px;*/
+    text-align: center;
+    cursor: pointer;
+    font:600 14px/20px "simsun";
+    background: rgba(11,11,11,.1);
+}
+.join .jTop {
+    height: 48px;
+    line-height: 48px;
+    padding-left: 18px;
+    font-family: "Microsoft Yahei";
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+    cursor: move;
+}
+.join .jMain {
+    width: 350px;
+    padding: 24px;
+    margin-left: 25px;
+}
+.join .jMain #info {
+    font-size:20px;
+    color: #D00088;
+    display: none;
+}
+.join .jMain input {
+    width: 300px;
+    height: 40px;
+    line-height: 40px;
+    border: solid 1px #ddd;
+    padding: 0;
+    padding-left: 5px;
+    margin-bottom: 15px;;
+    background: #fff;
+    font-size: 14px;
+}
+.join .jMain button {
+    width: 307px;
+    height: 50px;
+    color: #fff;
+    font-size: 16px;
+    background: #D00088;
+}
+/*导航栏、搜索*/
+.header {
+    height: 60px;
+    /*background-color: #8A25C6;*/
+}
+.header .nav {
+    float: left;
+    overflow: hidden;
+    margin-left: 198px;
+}
+.header .nav li {
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    padding:0 20px;
+    border-right: 1px solid #D8D8D8;
+    margin-top: 17px;
+}
+.header .nav a:hover {
+    color:#D00088 ;
+}
+.header .nav .last {
+    border: none;
+}
+.header .search {
+    float: right;
+    /*overflow: hidden;*/
+    /*width: 181px;*/
+    /*height: 40px;*/
+    margin-top: 14px;
+    margin-right: 150px;
+    position: relative;
+}
+.header .search label {
+    position: absolute;
+    top: 6px;
+    left: 15px;
+    font-size: 14px;
+    font-weight:500;
+    color: #aaa;
+    cursor: text;
+}
+.header .search input {
+    float: left;
+    height: 30px;
+    padding-left: 8px;
+    border: 1px solid #D00088;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    color: #666;
+}
+.header .search button {
+    float: left;
+    height: 32px;
+    border: 1px solid #D00088;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #D00088;
+    color: #ffffff;
+    font-family: "Microsoft Yahei";
+}
+.search #list {
+    position: absolute;
+    top: 32px;
+    z-index:1;
+    height: auto;
+    border: 1px solid #D00088;
+    border-radius: 10px;
+    width:203px;
+    overflow: hidden;
+    display: none;
+}
+#list li {
+    cursor: pointer;
+    padding-left: 8px;
+}
+#list li:hover {
+    background-color:rgba(208,0,136,.3);
+}
+/*播放盒子*/
+.player {
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    bottom:0 !important;
+    z-index: 9999;
+    background: rgba(208,0,206,.7);
+    /*display: none;*/
+}
+#playerClose {
+    position: absolute;
+    top:3px;
+    right: 3px;
+    width:20px;
+    height: 20px;
+    text-align: center;
+    cursor: pointer;
+    font:600 14px/20px "simsun";
+    z-index:9999;
+}
+.splice {
+    width: 100%;
+    height: 60px;
+    /*background-color: #d061ce;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.playerBox {
+    width: 100%;
+    position: relative;
+    z-index: 111;
+}
+.playerBox .play {
+    height: 60px;
+}
+.playerBox .pLeft {
+    float: left;
+    width: 280px;
+    height: 60px;
+}
+.playerBox .controller {
+    float: left;
+    display: inline;
+}
+.controller div {
+    float: left;
+    margin: 10px 0 0 17px;
+    cursor: pointer;
+    display: inline;
+}
+.controller .up,.controller .dowm,.controller .now {
+    width: 30px;
+    height: 30px;
+    background: url("../images/icon.png");
+}
+.controller .up {
+    background-position: -77px -118px;
+    margin-top: 15px;
+}
+.controller .now {
+    width: 40px;
+    height: 40px;
+    background-position: -137px -113px;
+}
+.controller .dowm {
+    background-position: -207px -118px;
+    margin-top: 15px;
+}
+.playerBox .pMid {
+    float: left;
+    width: 440px;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+}
+.pMid p {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 9px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.pMid .bar {
+    float: left;
+    width: 100%;
+    height: 4px;
+    margin: 10px 10px 0 0;
+    display: inline;
+    background-image: url(../images/prograssBg.png);
+    position: relative;
+}
+.pMid .bufferBar {
+    width: 0;
+    height: 4px;
+    background-image: url(../images/prograssBg.png);
+}
+.pMid .progressBar {
+    width: 0;
+    height: 4px;
+    background-color: #ffcd2d;
+    font-size: 12px;
+    line-height:1.5;
+}
+.pMid .scheduleBtn {
+    width: 10px;
+    height: 10px;
+    background: url("../images/icon.png") no-repeat 0 -128px;
+    position: absolute;
+    top: -3px;
+}
+.pRight .playTime {
+    float: left;
+    width: 100px;
+    margin: 33px 0 0 14px;
+    font-size: 12px;
+    color: #fff;
+    display: inline;
+}
+.pRight .controlBtn {
+    float: left;
+    height: 60px;
+    position: relative;
+}
+.controlBtn .menu {
+    float: left;
+    width: 20px;
+    height: 18px;
+    background: url("../images/icon.png") no-repeat -71px -63px;
+    margin: 25px 0 0 30px;
+    cursor: pointer;
+    display: inline;
+}
+.controlBtn .dowmload {
+    float: left;
+    width: 20px;
+    height: 21px;
+    margin: 23px 0 0 30px;
+    background: url("../images/icon.png") no-repeat -242px -137px;
+    display: inline;
+}
+.controlBtn .ewm {
+    float: left;
+    width: 19px;
+    height: 19px;
+    background: url(../images/icon.png) no-repeat 0 -63px;
+    margin: 24px 0 0 30px;
+    display: inline;
+    position: relative;
+    z-index: 111;
+    cursor: pointer;
+}
+
+
+/*底部开始*/
+.footer {
+    width: 100%;
+    height: 188px;
+    background: #130f0f;
+    border-top: 3px solid #b10100;
+}
+.footer p {
+    text-align: center;
+    color: #999;
+}
+.footer .p1 {
+    line-height: 32px;
+    margin-top: 30px;
+}
+.p1 span {
+    margin:0 20px;
+}
+.p1 img {
+    margin: 20px;
+}
+.footer .p2 {
+    margin-top: 15px;
+}

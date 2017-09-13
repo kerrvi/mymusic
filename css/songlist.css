@@ -1,0 +1,118 @@
+@charset "UTF-8";
+.list {
+    background: rgba(0,0,0,.6);
+    overflow: hidden;
+    margin-bottom: 60px;
+    padding-top: 20px;
+}
+.list .title {
+    width: 72%;
+    float: left;
+    /*position: fixed;*/
+    /*top: 64px;*/
+    /*z-index: 9999;*/
+    /*margin-left: 15%;*/
+}
+.list .title li {
+    float: left;
+    line-height: 36px;
+    font-size: 16px;
+    color: #9b9b9b;
+    font-size: 16px;
+    cursor: pointer;
+    height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.list .title .li1 {
+    width: 50%;
+    text-indent: 60px;
+}
+.list .title .li2 {
+    width: 30%;
+    font-size: 14px;
+    text-indent: 10px;
+}
+.list .title .li3 {
+    width: 10%;
+}
+.list .title .li4 {
+    width: 10%
+}
+.list .mBox1 {
+    width: 75%;
+    float: left;
+    font-size: 18px;
+    height: 370px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: visible;
+}
+.list .mBox2 {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    max-width: 100%;
+    outline: 0;
+    direction: ltr;
+    max-height: none;
+}
+.list .mBox2 .scroll {
+    width: 18px;
+    height: 100%;
+    position: absolute;
+    top: -1px;
+    right: 0;
+    background-color: #eee;
+}
+.list .mBox2 .bar {
+    width: 100%;
+    height: 100px;
+    background-color: #ff8af1;
+    cursor: pointer;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.list .musics {
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    position: relative;
+}
+.list .musics ul {
+    width: 98%;
+    float: left;
+    border-top: 1px solid #4a4a4a;
+}
+.list .musics li {
+    float: left;
+    line-height: 60px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.musics ul .li1 {
+    width: 50%;
+    text-indent: 30px;
+}
+.musics ul .li1:hover {
+    color:#ff8af1;
+}
+.musics ul .li2 {
+    width: 30%;
+    font-size: 14px;
+}
+.musics ul .li3 {
+    width: 10%;
+}
+.musics ul .li4 {
+    width: 10px;
+    text-align: center;
+}

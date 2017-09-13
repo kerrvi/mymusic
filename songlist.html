@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>歌曲清单</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/songlist.css">
+    <link rel="shortcut icon" href="favicon1.ico">
+    <script src="js/my.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/songlist.js"></script>
+    <script>
+        window.onload = function(){
+            var mask = document.getElementById("mask");
+            var join = document.getElementById("join");
+            var close = document.getElementById("close");
+            var jia = document.getElementById("jia");
+            jia.onclick = function(){
+                mask.style.display = "block";
+                join.style.display = "block";
+            }
+            close.onclick = function(){
+                mask.style.display = "none";
+                join.style.display = "none";
+            }
+//            垂直滚动条
+            var mBox2 = document.getElementById("mBox2");
+            var mList = mBox2.children[0];
+            var scroll = document.getElementById("scroll");
+            var bar = scroll.children[0];
+            bar.style.height = mBox2.offsetHeight/mList.offsetHeight * scroll.offsetHeight + "px";
+            dropdown(bar,mList);
+        }
+    </script>
+</head>
+<body>
+<!--头部-->
+<div class="top">
+    <div class="w">
+        <div class="logo fl"><a href="index.html"><img src="images/logo.jpg" alt="" title="我的音乐"></a></div>
+        <dl class="top-nav">
+            <dt>
+                <a href="main.html">我乐库</a>
+                <span></span>
+            </dt>
+            <dd>
+                <a href="#">移动端</a>
+            </dd>
+        </dl>
+        <div class="search"></div>
+        <button class="submit" id="jia" title="登录">请加入我</button>
+    </div>
+</div>
+<div id="mask"></div>
+<div id="join" class="join">
+    <span id="close" title="关闭">×</span>
+    <div class="jTop">登录</div>
+    <div class="jMain">
+        <p><input type="text" value="账号"></p>
+        <p><input type="password" value="密码"></p>
+        <button>登录</button>
+    </div>
+
+</div>
+<!--头部结束-->
+<!--导航栏、搜索框-->
+<div class="header w">
+    <div class="nav">
+        <ul>
+            <li><a href="main.html">我发现</a></li>
+            <li><a href="songlist.html" title="歌曲列表">我的歌</a></li>
+            <li class="last"><a href="#">音乐人</a></li>
+        </ul>
+    </div>
+    <div class="search">
+        <input type="text" value="" id="txt">
+        <label for="txt" id="message">你想要的音乐</label>
+        <button title="点击查找">查找</button>
+    </div>
+    <!--自家搜索框好体验-->
+    <script>
+        var mess = document.getElementById("message");
+        var txt = document.getElementById("txt");
+        //            txt.onmouseover = function() {
+        txt.oninput = function() {  // 还是这个比较好
+            if (this.value == ""){
+                mess.style.display = "block";
+            }else {
+                mess.style.display = "none";
+            }
+
+        }
+        //            txt.onmouseout = function(){
+        //                mess.style.display = "block";
+        //            }
+    </script>
+</div>
+<!--播放器-->
+<div class="player">
+    <span class="close" id="playerClose" title="关闭">×</span>
+    <div class="splice"></div>
+    <div class="playerBox">
+        <div class="play w">
+            <div class="pLeft">
+                <div class="controller">
+                    <div class="up" title="上一首"></div>
+                    <div class="now" title="播放"></div>
+                    <div class="dowm" title="下一首"></div>
+                </div>
+            </div>
+            <div class="pMid">
+                <p id="songShow">来听听音乐吧</p>
+                <div class="bar">
+                    <div class="bufferBar">
+                        <div class="progressBar"></div>
+                        <a href="" class="scheduleBtn"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pRight">
+                <p class="playTime">00:00</p>
+                <div class="controlBtn">
+                    <div class="menu" title="歌曲列表"></div>
+                    <a href="#" class="dowmload" title="下载"></a>
+                    <div class="ewm" title="二维码"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var pClose = document.getElementById("playerClose");
+    var player = pClose.parentNode;
+    pClose.onclick = function(){
+//            alert(player); ok!
+        player.style.display = "none";
+    }
+</script>
+
+<!--列表开始-->
+<audio src="music/我的天空.mp3" id="musicPlayer" loop="loop"></audio>
+<div class="list">
+    <div class="w">
+        <ul class="title">
+            <li class="li1">歌曲名</li>
+            <li class="li2">音乐人</li>
+            <li class="li3">时长</li>
+            <li class="li4"> </li>
+        </ul>
+        <div class="mBox1">
+            <div class="mBox2" id="mBox2">
+                <div class="musics" id="musics">
+                    <!--<ul>-->
+                        <!--<li class="li1">我的天空</li>-->
+                        <!--<li class="li2">南征北战</li>-->
+                        <!--<li class="li3">05:00</li>-->
+                        <!--<li class="li4"><img src="" alt=""></li>-->
+                    <!--</ul>-->
+                </div>
+                <div class="scroll" id="scroll">
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部开始-->
+<div class="footer">
+    <p class="p1">
+            <span>
+                <a href="#"><img src="images/footer1.png" alt="">加入我一起音乐吧:)</a>
+            </span>
+            <span>
+                <img src="images/footer2.png" alt="">
+                联系我吧:) 18898538673 &nbsp; QQ727946178
+            </span>
+    </p>
+    <p class="p2">www.域名待定.com &nbsp; 这很像一个商业网站了哈哈</p>
+    <p class="p3">沪B2-20070067 沪ICP备05025781号-3文网文[2010]277号 网络视听许可证0910577</p>
+</div>
+</body>
+</html>
